@@ -358,3 +358,123 @@ func main(){
 
 ### Formatted and File I/O
 
+- unix has the concept of three standard I/O streams
+- They are open by default in every program
+	- Standard Input
+	- Standard Output
+	- Standard Error
+- They are mapped to the console/terminal but can be redirected For example to text files.
+
+![[Screenshot 2025-07-06 at 10.14.17 pm.png]]
+
+| Function   | Destination | Formatting | Newline | Use Case                     |
+| ---------- | ----------- | ---------- | ------- | ---------------------------- |
+| `Println`  | stdout      | No         | Yes     | Quick logging                |
+| `Printf`   | stdout      | Yes        | No      | Precise formatting           |
+| `Fprintln` | io.Writer   | No         | Yes     | Logging to file/stream       |
+| `Fprintf`  | io.Writer   | Yes        | No      | Formatted file/socket output |
+| `Sprintln` | string      | No         | Yes     | Build simple string          |
+| `Sprintf`  | string      |        Yes | No      | Compose formatted string     |
+We have different packages related to file I/O:
+- Package `os` has functions to open and create files, list directories and hosts the `File` type
+- Package `io` has utils to read and write; `bufio` provides buffered I/O scanners
+- Package `io/ioutil` has extra utilities such as reading an entire file to memory or, writing it all out at once.
+- Package `strconv` has utils to convert to/from string representations
+- NOTE: `strconv` is the best way to get numbers back and forth from texts, because it is designed for it.
+
+	NOTE: [[General Knowledge]] Understand why this is referenced here
+
+*GO Convention*: Whenever an error is returned, always check for it. Check and handle that error
+
+### Functions, Parameters and Defer
+
+Functions are first class citizens,  so we can do all the things with functions as we do with for example strings or ints.
+ - We can define them - even inside other functions
+ - Create anonymous function literals
+ - Pass them as returns/ parameters
+ - Store them as variables
+ - Store them in slices and maps (not as keys)
+ - Store them as fields of a structure type
+ - Send and receive them in channels
+ - Write methods against a function type
+ - Compare a function var against a nil
+ - Almost anything can be defined inside a function(struct, var, another func)
+ - Methods cannot be defined in a function 
+ - The signature of a function is the order and type of it's parameters and return values
+Things passed by value: // the values are copied, changes are local
+- Numbers, bools, arrays, structs
+Things passed by reference:
+- things passed by pointers, strings, slices, maps, channels
+
+```go
+
+func do(m1 map[int]int) {
+	m1[3]=0
+	m1 = make(map[int]int)
+	fmt.Println("m1",m1)
+}
+
+func main(){
+
+	m := map[int]int{4:1,2:4,5:6}
+	do(m)
+	fmt.Println("m",m)
+	
+}
+
+// the output is :
+// m1 map[4:4]
+// m map[4:1 2:4 3:0 5:6]
+```
+The above example shows that in maps you have pass by reference, and m1 is initially referenced to the variable m, but then we assign it another hash table using the `make` . Thus m1 is a local variable inside.
+To make sure m is modified you need to do `*m1 = make(map[int]int`
+and also you need to define the function as `func(m1 *map[int]int`)
+*Conclusion*:
+All parameters in hindsight, are passed by value.
+Parameters are passed by copying something.
+If the copied parameter is a pointer or a descriptor, then the shared backing store can be changed through it. (array, hash table)
+
+
+- GO can have multiple return values.
+- `func x(int) (int,err) {}`
+
+*Defer*:
+A defer statement captures a function call to run later
+Defer operates on a function scope, and not the block scope.
+What does this mean?
+```go
+
+func main(){
+
+	f := os.Stdin
+
+	if len(os.Args)>1 {
+		
+		if f,err := os.Open(os.Args[1]); err!=nil{
+			
+		}
+		defer f.Close()
+	}
+	
+}
+```
+- Here,  defer will execute if we enter the if statement, but will not if we do not enter, if the defer was block scoped, then it should run after the ending of the if statement but it runs when the function main() finally exits.
+ - Thus, defer will happen only when the function exits.
+ - The value of the function/anything inside the defer is copied.
+	 `defer fmt.Println(a)` then a is a copied value.
+
+ *Naked returns and defer*:
+ ```go
+
+func todo() (a int){
+defer func(){
+a = 2
+}()
+
+a = 1
+return
+}
+```
+
+here, we need not return anything, we use the return value variable a as a variable inside the function, and when the function finally exits we have a =2 because of the defer.
+ 
