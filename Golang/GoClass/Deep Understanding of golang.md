@@ -477,4 +477,108 @@ return
 ```
 
 here, we need not return anything, we use the return value variable a as a variable inside the function, and when the function finally exits we have a =2 because of the defer.
- 
+
+### Chapter 9: Closures
+
+Scope of anything is static, based on the code at compile time.
+But the lifetime depends on the program execution.(runtime)
+
+```go
+func do() *int{
+
+return &b
+}
+```
+Then the value(object) will live so long as part of the program keeps a pointer to it.
+Even though the scope of variable b delcared inside the do() function has ended. Go has this inside implementation which handles the niche details.
+
+Go has a bigger stash than heap and puts most of the things inside it, but if the variable has to be for lifetime then it's put into heap.
+
+*What is a closure*?
+
+Closures captures the variables, and not the reference.
+
+```go
+
+func fib() func() int {
+
+	a,b := 0,1
+	return func() int {
+		a,b = b, a+b
+		return b
+	}
+}
+```
+
+We notice that the inner function doesn't declare a & b but borrow them from the outer function. Thus their lifetime becomes more than expected.
+
+It's a runtime thing, and we usually don't think about it. 
+it's like a string descriptor.
+
+![[Screenshot 2025-07-07 at 12.26.06 pm.png]]
+On the left hand side f is just a function, but for the right hand side, f becomes a closure.
+
+```go
+
+func main(){
+	f,g := fib(), fib()
+	for x := f(); x< 100; x=f() {
+		fmt.Println(x)
+	}
+}
+
+
+```
+Then as long as f exists, we can use the variables a & b
+g has different variables (own copy of a & b).
+
+When we look at an old example:
+
+```go
+
+var ss []kv
+
+sort.Slice(ss, func(i, j) bool {
+	return ss[i].val > ss[j].val
+})
+	
+```
+
+
+The sort.Slice took as input a slice and a closure.
+This closure has a particular signature determined by the slice inputs.
+we are using the `ss` directly inside the function without passing it.
+The closure gets `ss` from the var declaration.
+
+*When does closure come for need*?
+
+When the function that you can create is fixed by type, so you need to borrow variables from outside the scope of your function.
+
+
+### Slices in Details
+
+```go
+
+var a []int
+
+b := []int{}
+
+c := make([]int, 5)
+
+d := make([]int, 0, 5)
+
+// OUTPUT
+//0, 0, []int,  true, []int(nil)
+//0, 0, []int, false, []int{}
+//5, 5, []int, false, []int{0, 0, 0, 0, 0}
+//0, 5, []int, false, []int{}
+```
+
+
+![[Screenshot 2025-07-07 at 1.27.02 pm.png | 400]]
+The left hand parts of the image show that for each slice variable you have:
+ - length
+ - capacity
+ - Address
+
+Then based on the way we initialise the object, we get different values in these fields.
