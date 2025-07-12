@@ -1,13 +1,13 @@
 
 ## Things that I want to do
 
-| Status | Goals                                                                            |
-| ------ | -------------------------------------------------------------------------------- |
-|        | Learning Operating Systems Through implementation                                |
-|        | Learn Golang from goClass [[Deep Understanding of golang]]                       |
-|        | Update your CV                                                                   |
-|        | Differentiate between MBA and Computer Science                                   |
-|        | Read A deep System design book, I mean more about the implementation of the code |
+| Status       | Goals                                                                            |
+| ------------ | -------------------------------------------------------------------------------- |
+|              | Learning Operating Systems Through implementation                                |
+| *Chapter 12* | Learn Golang from goClass [[Understanding Golang,  Part 1]]                      |
+|              | Update your CV                                                                   |
+|              | Differentiate between MBA and Computer Science                                   |
+|              | Read A deep System design book, I mean more about the implementation of the code |
 
 ### Books that I have to Read
 
@@ -34,13 +34,15 @@
 
 #### High Level Design / Architecture
 
-| Status (Page/Chapter) | Book Name                             | Author                           |
-| --------------------- | ------------------------------------- | -------------------------------- |
-|                       | Software Architecture: The Hard Parts | Neal Ford, Mark Richards         |
-|                       | The Art of Scalability                | Martin L. Abbott, Michael Fisher |
-|                       | Site Reliability Engineering          | Betsy Beyer et al. (Google)      |
-|                       | Cloud Architecture Patterns           | Bill Wilder                      |
-|                       | Building Microservices                | Sam Newman                       |
+| Status (Page/Chapter)                            | Book Name                             | Author                           |
+| ------------------------------------------------ | ------------------------------------- | -------------------------------- |
+| Chapter 1                                        | Software Architecture: The Hard Parts | Neal Ford, Mark Richards         |
+| This is more about managerial aspects of scaling | The Art of Scalability                | Martin L. Abbott, Michael Fisher |
+|                                                  | Site Reliability Engineering          | Betsy Beyer et al. (Google)      |
+|                                                  | Cloud Architecture Patterns           | Bill Wilder                      |
+|                                                  | Building Microservices                | Sam Newman                       |
+| Part 1 complete                                  | Fundamentals of software Architecture |                                  |
+
 
 
 
@@ -56,7 +58,7 @@
 
 | Status | Video Objective                                               | Link                                                    |
 | ------ | ------------------------------------------------------------- | ------------------------------------------------------- |
-|        | Learning GoLang Fundamentals [[Deep Understanding of golang]] | [Playlist](https://www.youtube.com/watch?v=NNLpEPb2ddE) |
+|        | Learning GoLang Fundamentals [[Understanding Golang,  Part 1]] | [Playlist](https://www.youtube.com/watch?v=NNLpEPb2ddE) |
 |        | Learn Networks                                                |                                                         |
 |        | Learn Databases                                               |                                                         |
 |        | Learn Operating Systems                                       |                                                         |

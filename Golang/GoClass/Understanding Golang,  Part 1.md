@@ -582,3 +582,65 @@ The left hand parts of the image show that for each slice variable you have:
  - Address
 
 Then based on the way we initialise the object, we get different values in these fields.
+
+*Why does knowing this matter to us*?
+
+One example can be using json.
+Json encoding works differently in JSON when the object is nil.
+
+For `s` , json marshal will return `nil`
+For `t`, json will return `[]`
+
+In case of the variable u, when we do the append, it gets appended after all the zeroes.
+
+Appending to a nil slice is okay, because the slice is copied and new memory is allocated, unlike inserting in a nil map. 
+
+```go
+a := []int{1, 2, 3}
+
+b := a[0:1]
+
+c := b[0:2]
+
+  
+
+fmt.Println("a= ", a)
+
+fmt.Println("b= ", b)
+
+fmt.Println("c= ", c)
+
+  
+
+fmt.Println(len(b))
+
+fmt.Println(cap(b))
+
+fmt.Println(len(c))
+
+fmt.Println(cap(c))
+```
+
+Then we get as output:
+```go
+a=  [1 2 3]
+b=  [1]
+c=  [1 2]
+1
+3
+2
+3
+```
+*why*?
+The underlying array used by b had a capacity of 3, if it had a capacity of 1, then 
+we could not do what we did, and the program would die.
+`d := c[0:1:1]`, using this notation we change the capacity. 
+
+When I append to c, If it has 2 elements and it referenced a, I will change the 3'rd element of a.
+
+*The conclusion*:
+There are two things going on, but most importantly slices are aliases to arrays.
+If we change any reference, all references values will change.
+Doing an append will make a copy and give us the data into the new location.
+
+
