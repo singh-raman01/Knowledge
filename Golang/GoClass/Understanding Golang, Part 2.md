@@ -1,4 +1,4 @@
-### Class 12: Structs, Tags and JSON
+****### Class 12: Structs, Tags and JSON
 
  *Structural Compatibility*:
  Even though the structs are anonymous, and have no type defintions,
@@ -278,10 +278,277 @@ func OutputTo(w io.Writer,...) {....}
 ```
 
 So what does OutputTo take?
-It takes any function that provides a write method
+It takes any Object that provides a write method
 
 An interface specifies the required behaviour as a method set
+, and then we have an actual type that implements that method set
+
+*Why does it look so confusing*
+*In other languages when you implement an interface you have to say that.*
+Because we never read the work `implements` anywhere, GO doesn't do that
+The way we think about interfaces in go is from the consumer's side and not the provider's side
+I, the consumer, want a particular interface that provides a particular method that provides this particular behaviour
 
 Any type that implements that method set satisfies the interface
 
-type Stringer interf
+```go
+
+type Stringer interface {
+	String() string
+}
+
+func (is IntSlice) String() string {
+
+}
+```
+This is k.a. structural typing
+No type will declare itself to implement `ReadWriter` explicitly
+
+Methods may be declared on any `user-declared type`
+Ex.
+```go
+type Myint int
+func (i MyInt) String() string{
+
+}
+```
+The same method name may be bound to different types
+
+A method may take a pointer or value receiver, but not both
+```go
+
+type Point struct {
+	X, Y, float64 
+}
+
+func (p Point) Offset(x, y, float64) Point{
+	return Point{p.x+x,p.y+y}
+}
+
+func (p *Point) Move(x, y float){
+	p.x+=x
+	p.y+=y
+}
+```
+Taking a pointer allows the method to change the receiver (original object)
+
+NOTE: All the methods must be present to satisfy the interface
+
+```go
+
+var w io.Writer
+var rwc io.ReadWriteCloser
+
+w = os.Stdout             // OK: *os.File has Write method
+w = new(bytes.Buffer)     // OK: *bytes.Buffer has Write method
+w = time.Second           //ERROR: no write method
+
+rwc = os.Stdout // OK: *os.File has all three method
+rwc = new(bytes.Buffer) // ERROR: no Close method
+
+w = rwc // OK: io.ReadWriteCloser has Write
+rwc = w // ERROR : no Close method 
+```
+
+Because of the last 2 lines, it is better to keep the writer small
+
+NOTE:
+The Receiver must be of the right type (pointer or value)
+ ```go
+
+type IntSet struct {}
+
+func (*IntSet) String() string
+
+var _ = IntSet{}.String() // WE cannot do this, as this is a literal
+// Why? Because String needs *IntSet
+// and this initialisation has no place in the memory
+
+var s IntSet
+var _ = s.String() // OK
+
+var _ fmt.Stringer = &s  //OK
+var _ fmt.Stringer = s   //ERROR: no String method
+// Because we defined our stringmethod to take the pointer receiver, (it will only work on the pointer receiver)
+// SO the other way won't work??
+// COMPLICATED: COME BACK LATER
+// we need to have the actual address of the object to make the stringer happy 
+```
+
+*Interface Composition*
+We can compose our interfaces, without defining the methods in the big interface.
+```go
+
+type reader interface{
+	Read(p []byte) (n int,err error)
+}
+
+type writer interface{
+	Wtite(p []byte) (n int,err error)
+}
+
+// then we have:
+
+type ReadWriter interface{
+	Reader
+	Writer
+}
+```
+
+*What is the reason for this*?
+Usually interfaces are supposed to be kept small.
+
+And this is related to the extension of types. 
+In Golang, all methods for a given type must be declared in the same package where the type is declared.
+This allows a package importing the type to know all the methods at compile time.
+**But**, we can always extend the type in a new package through embedding.
+```go
+type Bigger struct {
+	my.Big     // get all Big methods via promotion
+}
+func (b Bigger) // New method added in the same file/package
+```
+
+```go
+// check out supporting code in goCode
+```
+
+### Class 19:Struct Composition (This is not inheritance)
+
+The fields of an embedded struct are promoted to the level of the embedding structure.
+
+```go
+type Pair struct {
+	Path string
+	Hash string
+}
+
+type PairWithLength struct {
+	Pair  // the fields for Pair appear in the same level as Length 
+	Length int
+}
+// It means that p1.Path makes sense
+// Makes the same sense as p1.length
+func (p Pair) String() string {
+return fmt.Sprintf("Hash of %s is %s.",p.Path,p.Hash)
+}
+func testStructComposition() {
+p := Pair{"abc","Ocedf"}
+p1 := PairWithLength{Pair{"ana","kaubd"},1212}
+fmt.Println(p)
+fmt.Println(p1)
+}
+
+// this case has ouput of 
+// Hash of abc is Ocedf
+// Hash of ana is kaubd
+```
+Because the PairWithLength didn't have a string method, the string method of Pair was promoted to PairWithLength and we used it.
+But if we define a `String() string` method for PairWithLength then that would be used instead.
+*Do not confuse this with overriding*
+Because we are not doing inheritance.
+```go
+func FileName(p Pair) string{
+return filepath.Base(p.Path)
+
+// Hence
+fmt.Println(FileName(p1)) 
+// Won't work
+```
+Then in the fileName function, we cannot pass PairWithLength even though it contains the Pair, because this is not inheritance
+
+A struct can also embed a pointer to another type; promotion of it;s fields and methods work the same way
+```go
+type FigZig struct {
+	*PairWithLength
+	Broken bool
+}
+
+fg := FigZig{
+	&PairWithLength{Pair{"/usr","Oxfdfe"},121},
+	false,
+}
+// then 
+fmt.Println(fg)
+// Will use the string function of PairWithLength
+```
+
+*Let's look at a practical case to understand why this is helpful*
+*We will see how `Sort.Interface` is implemented*
+
+```go
+
+type Interface interface {
+	Len()// no of elements in collection
+	Less(i, j int) bool//how to check
+	Swap(i, j int)//how to swap
+}
+
+func sort.Sort(data Interface)
+```
+
+We have built-ins for sorting.
+Ex. Slices of strings can be sorted using StringSlice.
+```go
+entries := []string{"Charlie","able","Dog"}
+sort.Sort(sort.StringSlice(entries))
+```
+So, what this StringSlice function does it that it takes the string and casts it into a type which has those three methods defined.
+And now because that type has that methods defined it implements that interface.
+
+*Now look at another use case
+`sort.Reverse`*
+
+```go
+
+type Reverse struct{
+	Interface
+}
+// now all methods of inteface are promoted to reverse
+
+// and what reverse does is that it overwrites one of the methods
+
+func(r reverse) Less(i, int j) bool{
+	return r.Interface.Less(j,i)
+}
+
+func Reverse(data Interface) Interface {
+	return &reverse{data}
+}
+
+// How does it work?
+
+sort.Sort(sort.Reverse(sort.StringSlice(entries)))
+
+```
+
+*Making the nil useful*
+
+```go
+
+type StringStack struct {
+	data []string
+	// 'd' in data is small so we don't expose the internal
+	// data structure
+}
+
+func (s *StringStack) Push(x string){
+	s.data = append(s.data,x)
+}
+
+func(s *StringStack) Pop() string {
+	if l:= len(s.data); l>0 {
+		t:= s.data[l-1]
+		s.data := s.data[:l-1]
+		return t
+	}
+	panic("pop from the empty stack")
+}
+```
+
+Nothing in go Prevents calling a method with a `nil` receiver
+In this case we called on the last element, handled the `nil` by ourselves.
+
+
+### Class 20: Interfaces and Methods in Details
+We will cover some intricate details and some pragmatic ways for how to use interfaces.

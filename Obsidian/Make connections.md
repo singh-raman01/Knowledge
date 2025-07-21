@@ -13,3 +13,8 @@
 	6. Headers : use \# and then a space key. 
 	7.  You have 6 levels for this.(just increase the number of \#
 
+- https://help.obsidian.md/
+- https://help.obsidian.md/syntax#External%20links
+
+
+

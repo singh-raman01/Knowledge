@@ -1,13 +1,22 @@
+### ROADMAP
+https://roadmap.sh/roadmaps
+
+Even for Projects you have these Roadmaps.
+https://roadmap.sh/
 
 ## Things that I want to do
 
-| Status       | Goals                                                                            |
-| ------------ | -------------------------------------------------------------------------------- |
-|              | Learning Operating Systems Through implementation                                |
-| *Chapter 12* | Learn Golang from goClass [[Understanding Golang,  Part 1]]                      |
-|              | Update your CV                                                                   |
-|              | Differentiate between MBA and Computer Science                                   |
-|              | Read A deep System design book, I mean more about the implementation of the code |
+| Status                            | Goals                                                                                               |
+| --------------------------------- | --------------------------------------------------------------------------------------------------- |
+| *Chapter 3*                       | Learning Operating Systems Through implementation                                                   |
+| *Chapter 20*                      | Learn Golang from goClass [[Understanding Golang,  Part 1]]                                         |
+|                                   | Update your CV                                                                                      |
+|                                   | Differentiate between MBA and Computer Science                                                      |
+|                                   | Read A deep System design book, I mean more about the implementation of the code                    |
+|                                   | Learn Networks via Implementation and Read a complete book<br>https://www.computer-networking.info/ |
+| TOP GITHUB PROJECTS               | https://github.com/search?o=desc&q=stars%3A%3E100000&s=stars&type=Repositories                      |
+| Building web projects with Golang | https://github.com/astaxie/build-web-application-with-golang                                        |
+|                                   | Finish The Col 106 Project provied by Bagchi                                                        |
 
 ### Books that I have to Read
 
@@ -56,12 +65,12 @@
 ### Youtube Courses & Videos for Learning
 
 
-| Status | Video Objective                                               | Link                                                    |
-| ------ | ------------------------------------------------------------- | ------------------------------------------------------- |
-|        | Learning GoLang Fundamentals [[Understanding Golang,  Part 1]] | [Playlist](https://www.youtube.com/watch?v=NNLpEPb2ddE) |
-|        | Learn Networks                                                |                                                         |
-|        | Learn Databases                                               |                                                         |
-|        | Learn Operating Systems                                       |                                                         |
+| Status | Video Objective                                                                                  | Link                                                    |
+| ------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------- |
+|        | Learning GoLang Fundamentals [[Understanding Golang,  Part 1]] [[Understanding Golang,  Part 1]] | [Playlist](https://www.youtube.com/watch?v=NNLpEPb2ddE) |
+|        | Learn Networks https://stevetarzia.com/teaching/                                                 |                                                         |
+|        | Learn Databases https://stevetarzia.com/teaching/                                                |                                                         |
+|        | Learn Operating Systems https://stevetarzia.com/teaching/                                        |                                                         |
 
 
 ### Github Implementations
