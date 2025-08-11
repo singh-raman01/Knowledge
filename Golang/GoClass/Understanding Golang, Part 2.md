@@ -551,4 +551,145 @@ In this case we called on the last element, handled the `nil` by ourselves.
 
 
 ### Class 20: Interfaces and Methods in Details
-We will cover some intricate details and some pragmatic ways for how to use interfaces.
+We will cover some intricate details and some pragmatic ways for how to use interfaces
+
+*NIL interface*
+
+An interface variable is nil until initialised
+It has two parts to it:
+- A value or pointer of some type
+- A pointer to type transformation so the correct actual method can be defined
+
+```go
+var r io.Reader // nil until initalised
+var b *bytes.Buffer // ditto
+
+r = b // r is no longer nil, but it has a nil pointer to a buffer
+```
+
+
+![[Screenshot 2025-07-27 at 10.20.51 am.png | 400]]
+
+*What is the practical case of this?*
+
+Error is an interface
+
+```go
+type error interface {
+	func Error() string
+}
+```
+And we always do `err!=nil` .
+
+*We will see how this comes up and affects our code*
+Because we don't check to see what's inside the error, we just check if the error is nil or not
+Having a concrete pointer return fails this fact
+**Take away**: Return interface types when we want to return nil and do not return concrete pointer types  
+
+*Value and pointers receivers revisited*:
+```go
+type point struct {
+	x,y float32
+}
+
+func (p *point) add(){}
+
+func (p point) OFfset(){}
+```
+Then:
+Firstly the same method way not be bound to both T and \*T
+And,
+go will automatically use \* and & as needed.
+Pointer methods may be called on non-pointers and vica-versa
+
+```go
+p1 := new(point) // pointer to a point
+p2 := Point{1,1} // actual point (point literal)
+
+p1.Offset(p2) // same as (*p1).Offset(p2)
+p2.Add(3,4)  // same as (&p2).Add(3,4)
+```
+
+*L(Locator)-value and R(read)-value*
+Describe how expressions relate to memory- Specifically whether they refer to a memory location(L-value) or just produce a value(R-value)
+- L value has a identifiable memory address
+- It *can be assigned to*
+```go
+int y;
+(y+1) = 5; // not allowed, because y+1 is an R value
+```
+- R-value is temporary and does not have a name or a specific memory location
+- Cannot appear on the left side of the assignment
+```go
+&(x+4) // cannot do this
+```
+
+
+|                  | Pointer | L-Value | R-Value |
+| ---------------- | ------- | ------- | ------- |
+| Pointer Receiver | OK      | &OK     | Not OK  |
+| Value Receiver   | OK \*   | OK      | OK      |
+```go
+var p point
+p.Add(1,2) // ok, same as &p.add
+Point{1,2}.Add(3,4) // cannot, point literal is a value, it doesn't have a place, i.e it isn't bound to an address
+```
+
+*sometimes when pointer receivers come to play, i.e. we can only use pointer receivers. Ex. When we have an embedded slice, copying them may lead to unexpected failures*
+
+```go
+type Buffer struct {
+	buf []byte
+	off int
+}
+
+func(b *Buffer) ReadString(delim byte) (string, error) {}
+```
+
+*Method Values*
+A method value is a value closed over it's receiver
+A selected method may be passed to a similar closure,
+the receiver is closed over at that point
+
+```go
+type Point struct{}
+func (p point) Distance(q point) float64
+
+distanceFromP := p.Distance
+fmt.Printf("%T",distanceFromP)
+fmt.Printf("%T",Point.Distance)
+
+// func(main.Point) float64
+// func(main.Point,main.Point) float64
+
+```
+I can call `distanceFromP(q)`
+
+If I change the value of p, and still call the distanceFromP function, i will get the same value (p has been copied into the curry)
+*but if i change my receiver to a pointer* then the value output of the curry function will change on changing the p
+
+***Interface in Practice***
+- Let the consumers of the functions (which has input of some interface), define that interface. As the producer, you can have no idea about the definition but just know what the method's output should be. (Ex. I know that it has writer, I will write to it)
+- Re-use standard interface when possible
+- Keep the interface declaration small (for better abstraction)
+	- Because if you define an interface with a lot of methods, then mocking that interface, you would need to implement your interface with a lot of methods 
+- Compose one-method interface into larger interfaces (if needed)
+- Avoid coupling interfaces into particular types/implementations 
+- Accept interfaces, but return concrete types (let the consumer of the return type decide how to use it)
+
+*Interface VS concrete values*
+- Be liberal in what you accept, but be conservative in what you return
+	- *Put the least restriction on what parameters you accept* (the minimal interface)
+		- Don't require ReadWriteCloser if you only need to read
+	- Avoid restricting the use of your return type (the concrete value your return might fit with many interfaces)
+		- Return \*os.File is less restrictive than returning io.ReadWriteCloser because files have other useful methods
+*Exception*: Returning error is a good example of exception to this rule
+
+
+*Empty Interfaces*:
+The `interface{} has no methods`
+So it's satisfied by anything
+
+Empty interfaces are commonly used; they're how the formatted I/O routines can print any type
+`func fmt.Printf(f string, args ... interface{}`)
+*Reflection* is needed to determine what the concrete type is.

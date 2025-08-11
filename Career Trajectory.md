@@ -6,17 +6,18 @@ https://roadmap.sh/
 
 ## Things that I want to do
 
-| Status                            | Goals                                                                                               |
-| --------------------------------- | --------------------------------------------------------------------------------------------------- |
-| *Chapter 3*                       | Learning Operating Systems Through implementation                                                   |
-| *Chapter 20*                      | Learn Golang from goClass [[Understanding Golang,  Part 1]]                                         |
-|                                   | Update your CV                                                                                      |
-|                                   | Differentiate between MBA and Computer Science                                                      |
-|                                   | Read A deep System design book, I mean more about the implementation of the code                    |
-|                                   | Learn Networks via Implementation and Read a complete book<br>https://www.computer-networking.info/ |
-| TOP GITHUB PROJECTS               | https://github.com/search?o=desc&q=stars%3A%3E100000&s=stars&type=Repositories                      |
-| Building web projects with Golang | https://github.com/astaxie/build-web-application-with-golang                                        |
-|                                   | Finish The Col 106 Project provied by Bagchi                                                        |
+| Status                            | Goals                                                                                                        |
+| --------------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| *Chapter 3*                       | Learning Operating Systems Through implementation                                                            |
+| *Chapter 24*                      | Learn Golang from goClass [[Understanding Golang,  Part 1]]                                                  |
+|                                   | Update your CV                                                                                               |
+|                                   | Differentiate between MBA and Computer Science                                                               |
+|                                   | Read A deep System design book, I mean more about the implementation of the code                             |
+|                                   | Learn Networks via Implementation and Read a complete book<br>https://www.computer-networking.info/          |
+| TOP GITHUB PROJECTS               | https://github.com/search?o=desc&q=stars%3A%3E100000&s=stars&type=Repositories                               |
+| Building web projects with Golang | https://github.com/astaxie/build-web-application-with-golang                                                 |
+| On second module                  | Finish The Col 106 Project provied by Bagchi                                                                 |
+| Start                             | Learn Database Design (Very important for now)<br>https://github.com/sujeet-agrahari/awesome-database-design |
 
 ### Books that I have to Read
 

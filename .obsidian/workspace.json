@@ -4,39 +4,24 @@
     "type": "split",
     "children": [
       {
-        "id": "cc38799a694b625c",
+        "id": "ca7238364637cb32",
         "type": "tabs",
         "children": [
           {
-            "id": "b8f018f92ff422c3",
+            "id": "72002091e49239c5",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Golang/GoClass/Understanding Golang, Part 2.md",
+                "file": "Golang/GoClass/Understanding Golang, Part 3.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Understanding Golang, Part 2"
-            }
-          },
-          {
-            "id": "d67032997eab1be9",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Career Trajectory.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Career Trajectory"
+              "title": "Understanding Golang, Part 3"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -196,30 +181,38 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "d67032997eab1be9",
+  "active": "72002091e49239c5",
   "lastOpenFiles": [
-    "Golang/GoClass/Understanding Golang, Part 2.md",
+    "Software Engineering/MakeFile.md",
+    "Untitled.canvas",
+    "Software Engineering/Guide.md",
+    "Operating systems/General Knowledge.md",
     "Operating systems/Guide.md",
     "Career Trajectory.md",
-    "Software Engineering/Guide.md",
+    "Golang/GoClass/Understanding Golang, Part 3.md",
+    "Screenshot 2025-07-27 at 1.23.55 pm.png",
+    "Screenshot 2025-07-27 at 12.35.05 pm.png",
+    "Golang/GoClass/Understanding Golang, Part 2.md",
+    "Screenshot 2025-07-27 at 11.57.36 am.png",
+    "Screenshot 2025-07-27 at 11.53.55 am.png",
+    "japan itenary/screenshots/Screenshot 2025-07-07 at 4.00.10 pm.png",
+    "japan itenary/screenshots/Screenshot 2025-07-07 at 4.27.26 pm.png",
+    "Golang/GoClass/screenshots/Screenshot 2025-07-27 at 10.20.51 am.png",
+    "Golang/GoClass/screenshots",
+    "japan itenary/screenshots/Screenshot 2025-07-07 at 4.28.35 pm.png",
+    "japan itenary/screenshots",
+    "Golang/GoClass/Understanding Golang,  Part 1.md",
     "Obsidian/I have made a connection.md",
     "Obsidian/Make connections.md",
-    "Operating systems/General Knowledge.md",
     "Pragmattic Programmer/PP, Chapter 2.md",
     "Pragmattic Programmer/PP, Chapter 1.md",
     "Software Engineering",
     "Networks",
-    "Golang/GoClass/Understanding Golang,  Part 1.md",
     "japan itenary/Flights locations and prices.md",
-    "Screenshot 2025-07-07 at 4.28.35 pm.png",
-    "Screenshot 2025-07-07 at 4.27.26 pm.png",
-    "Screenshot 2025-07-07 at 4.00.10 pm.png",
     "japan itenary",
     "Screenshots/Screenshot 2025-07-07 at 1.27.02 pm.png",
     "Screenshots/Screenshot 2025-07-07 at 12.26.06 pm.png",
     "Operating systems",
-    "Screenshots/Screenshot 2025-07-06 at 10.14.17 pm.png",
-    "Screenshots/Pasted image 20250706101519.png",
     "README.md"
   ]
 }
