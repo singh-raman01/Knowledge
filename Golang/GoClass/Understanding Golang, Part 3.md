@@ -149,3 +149,20 @@ Select allows us to read multiple channels at the same time, and whichever is re
 
 
 In the commented case, we have to wait for 2 seconds for every read from the channels because one of them is slow.
+
+
+### Chapter 25: Go Context Package
+
+Is a way to tie together bunch of related work.
+The *context* package offers a common method to cancel requests.
+- Explicit Cancellation
+- Implicit Cancellation based on a timeout or a deadline
+A context may also carry request-specific values, such as trace ID
+Many network or database requests, take context for cancellation
+
+A context offers two controls:
+- A channel which closes when the cancellation occurs
+- An error that's readable once the channel closes
+
+The error value tells you whether the request was cancelled or timed out
+We often use the channel from Done() in a `select` block fa
