@@ -4,21 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "e0059b52e02a6041",
+        "id": "38114f1c597b6f7c",
         "type": "tabs",
         "children": [
           {
-            "id": "6216ef08b25e3466",
+            "id": "141ac2aa0c3c1891",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Career Trajectory.md",
+                "file": "portfolio management/Where to study from?.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Career Trajectory"
+              "title": "Where to study from?"
             }
           }
         ]
@@ -72,6 +72,16 @@
               "state": {},
               "icon": "lucide-bookmark",
               "title": "Bookmarks"
+            }
+          },
+          {
+            "id": "c39bea2ac184d3e8",
+            "type": "leaf",
+            "state": {
+              "type": "file-tree-view",
+              "state": {},
+              "icon": "sheets-in-box",
+              "title": "File Tree"
             }
           }
         ]
@@ -177,23 +187,32 @@
       "templates:Insert template": false,
       "command-palette:Open command palette": false,
       "table-editor-obsidian:Advanced Tables Toolbar": false,
-      "obsidian-git:Open Git source control": false
+      "obsidian-git:Open Git source control": false,
+      "file-tree-alternative:File Tree Alternative Plugin": false
     }
   },
-  "active": "6216ef08b25e3466",
+  "active": "141ac2aa0c3c1891",
   "lastOpenFiles": [
+    "Software Engineering/Tech school backend notes.md",
+    "portfolio management/Where to study from?.md",
+    "portfolio management",
+    "Untitled.md",
+    "Screenshot 2025-11-09 at 2.05.17 pm.png",
+    "Obsidian/Make connections.md",
+    "Obsidian/I have made a connection.md",
+    "dbdiagram.io.md",
+    "Software Engineering/Backend Engineering.md",
+    "Networks/SSL-TLS theory.md",
+    "Career Trajectory.md",
     "README.md",
     "Software Engineering/MakeFile.md",
     "Software Engineering/Guide.md",
-    "Software Engineering/Backend Engineering.md",
-    "Career Trajectory.md",
     "Golang/GoClass/Understanding Golang, Part 2.md",
     "Screenshots/NoteGPT_MindMap_1756622718409.png",
     "Screenshots/Screenshot 2025-07-27 at 1.23.55 pm.png",
     "Screenshots/Screenshot 2025-07-27 at 11.53.55 am.png",
     "Screenshots/Screenshot 2025-07-27 at 12.35.05 pm.png",
     "Untitled.canvas",
-    "Untitled.md",
     "Screenshots/Screenshot 2025-07-27 at 11.57.36 am.png",
     "Golang/GoClass/Understanding Golang, Part 3.md",
     "Operating systems/General Knowledge.md",
@@ -205,15 +224,12 @@
     "japan itenary/screenshots/Screenshot 2025-07-07 at 4.28.35 pm.png",
     "japan itenary/screenshots",
     "Golang/GoClass/Understanding Golang,  Part 1.md",
-    "Obsidian/I have made a connection.md",
-    "Obsidian/Make connections.md",
     "Pragmattic Programmer/PP, Chapter 2.md",
     "Pragmattic Programmer/PP, Chapter 1.md",
     "Software Engineering",
     "Networks",
     "japan itenary/Flights locations and prices.md",
     "japan itenary",
-    "Screenshots/Screenshot 2025-07-07 at 1.27.02 pm.png",
     "Operating systems"
   ]
 }
